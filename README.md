@@ -1,41 +1,42 @@
-# Mom of 5 — Family Command Center
+# Mom of 5 Family Command Center v2
 
-An upgraded Streamlit family planner for a mom managing five children.
+This version is designed specifically for:
+- Four children who attend school
+- One 2-year-old who stays home with Mom
 
-## Major features
-- Editable child profiles and school times
-- Editable daily tasks and time estimates
-- One-time appointments and events
-- Homework tracking
-- Meal planning
-- Grocery list
-- Age-appropriate chore guidance
-- Weekly reset
-- Busy Day Mode
-- Mom self-care tracking
-- Daily time-budget metrics
-- Estimated free/rest time
-- Rest target comparison
-- Overbooking / overload warnings
-- Daily utilization percentage
-- Category-level time insights
-- Suggestions for what to simplify when the day is overloaded
-- JSON backup download and restore
+## New in this version
+- Toddler-at-home routine and toddler time included in planning
+- Dedicated night-before checklist for all school children
+- Child-name lookup values used across the app
+- Selectable date and time controls for calendar entries
+- Food master lookup list
+- Meal-plan dropdowns using the food lookup
+- Grocery category master list
+- Grocery item lookup master list
+- Grocery shopping list built from dropdowns
+- Rest-time and overload metrics
+- JSON backup / restore
 
-## Important persistence note
-Streamlit Community Cloud does not guarantee permanent local storage. This app therefore includes a JSON backup/restore feature. Download a family backup periodically and restore it if needed.
-
-## GitHub deployment
+## GitHub
 Upload:
 - app.py
 - requirements.txt
 - README.md
 - .gitignore
 
-Then deploy `app.py` with Streamlit Community Cloud.
-
 ## Run locally
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
+
+## Persistence
+Streamlit Community Cloud does not guarantee permanent local storage. Use the built-in JSON backup download/restore periodically.
+
+## Added in v3
+- Mom Care reusable lookup list
+- Selectable self-care start/end times
+- Automatic Mom-care duration in minutes and hours
+- Dedicated Time Calculator tab
+- Start/end time selection with total minutes, decimal hours, and hours + minutes
+- Cross-midnight calculation support
