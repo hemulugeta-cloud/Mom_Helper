@@ -40,3 +40,12 @@ Then deploy `app.py` on Streamlit Community Cloud.
 - Daily category metrics displayed as a bar chart
 - Total hours labeled for each category
 - Daily summary simplified to Total Planned Time + Total Unplanned Time
+
+## Professional polish update
+- Modern dashboard spacing and typography
+- Card-style metric tiles
+- Cleaner expandable category panels
+- Polished selected-day banner
+- Improved action buttons and section hierarchy
+- Refined daily and weekly overview styling
+- Cleaner category chart presentation

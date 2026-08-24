@@ -4,6 +4,67 @@ import pandas as pd
 
 st.set_page_config(page_title="Mom Weekly Calendar", page_icon="📅", layout="wide")
 
+st.markdown("""
+<style>
+:root {
+    --panel: rgba(255,255,255,0.78);
+    --border: rgba(120,120,120,0.16);
+    --muted: rgba(90,90,90,0.82);
+}
+.block-container {
+    max-width: 1280px;
+    padding-top: 1.3rem;
+    padding-bottom: 2rem;
+}
+h1 {
+    font-weight: 800 !important;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.15rem !important;
+}
+h2, h3 {
+    letter-spacing: -0.01em;
+}
+div[data-testid="stMetric"] {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    border-radius: 16px;
+}
+div[data-testid="stExpander"] {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--panel);
+    margin-bottom: 12px;
+}
+div[data-testid="stExpander"] summary {
+    font-weight: 700;
+}
+div.stButton > button {
+    border-radius: 12px;
+    font-weight: 650;
+    padding: 0.55rem 0.9rem;
+}
+div[data-testid="stAlert"] {
+    border-radius: 14px;
+}
+section[data-testid="stSidebar"] {
+    border-right: 1px solid var(--border);
+}
+.small-note {
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+.day-banner {
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--panel);
+    margin: 8px 0 18px 0;
+}
+</style>
+""", unsafe_allow_html=True)
+
 def init_state():
     if "week_start" not in st.session_state:
         today = date.today()
@@ -226,7 +287,7 @@ DEFAULT_MINUTES = {
 }
 
 st.title("📅 Mom Weekly Calendar")
-st.caption("For a family with five children ages 2–12, with the 2-year-old staying home with Mom.")
+st.caption("A simple weekly family planning dashboard for school routines, toddler care, home tasks, family time, self-care, church, and sleep.")
 
 c1,c2,c3 = st.columns([1,2,1])
 with c1:
@@ -262,7 +323,7 @@ selected_label = st.selectbox("Select day to plan",day_labels,index=default_idx)
 selected_date = dates[day_labels.index(selected_label)]
 day_key = selected_date.isoformat()
 
-st.markdown(f"## {selected_date.strftime('%A, %B %d, %Y')}")
+st.markdown(f"""<div class="day-banner"><div style="font-size:0.88rem; opacity:.72;">Selected day</div><div style="font-size:1.55rem; font-weight:800;">{selected_date.strftime("%A, %B %d, %Y")}</div></div>""", unsafe_allow_html=True)
 
 if day_key not in st.session_state.schedule:
     st.session_state.schedule[day_key] = {}
@@ -270,7 +331,7 @@ if day_key not in st.session_state.schedule:
 category_totals = {}
 day_total = 0
 
-st.info("Expand only the categories you want to plan. Check the activities Mom will do that day and choose the estimated time beside each activity.")
+st.info("Expand a category, choose the activities planned for this day, and set the estimated duration. Daily and weekly totals update automatically.")
 
 for category, activities in CATEGORIES.items():
     cat_total = 0
@@ -343,7 +404,7 @@ for category, activities in CATEGORIES.items():
     category_totals[category] = cat_total
     day_total += cat_total
 
-st.header("📊 Daily Time Summary")
+st.header("📊 Daily overview")
 
 unplanned = max(0, 1440 - day_total)
 m1,m2 = st.columns(2)
@@ -373,7 +434,7 @@ elif day_total > 960:
 else:
     st.success("🟢 The selected activities leave some room for transitions, interruptions, and rest.")
 
-st.header("📈 Weekly Summary")
+st.header("📈 Weekly overview")
 weekly_category = {cat:0 for cat in CATEGORIES}
 weekly_total = 0
 
@@ -395,7 +456,7 @@ for i,(category,total) in enumerate(weekly_category.items()):
     with week_cols[i % 4]:
         st.metric(category,hours_text(total))
 
-st.subheader("Daily totals for the selected week")
+st.subheader("Daily totals this week")
 for d in dates:
     dk=d.isoformat()
     total=0
