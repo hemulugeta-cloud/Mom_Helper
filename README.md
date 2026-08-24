@@ -1,35 +1,36 @@
-# Early Learning Interview Prep App
+# Mom Weekly Calendar
 
-A Streamlit interview-prep app for preschool / early-learning positions.
+Weekly Streamlit planner for a mom with five children ages 2–12, with the 2-year-old staying home.
 
-## Included
-- 30-minute crash-course plan
-- Common interview questions
-- Sample answers
-- Scenario practice
-- Random rapid-fire practice
-- Strengths / weakness prep
-- Questions to ask the employer
-- Final 5-minute review
-- Core ECE interview vocabulary
+## Categories
+- Kids / School
+- Toddler
+- Cleaning
+- Cooking
+- Laundry
+- Church
+- Mom Self-Care
+- Family Time
+- Sleep
 
-## GitHub
+## New features
+- Church worship
+- Church class
+- Kids church / Sunday school
+- Separate Cleaning, Cooking, and Laundry categories
+- Expanded Mom Self-Care activity choices
+- Expanded Family Time activity choices
+- Every category is collapsible / expandable
+- Checkbox beside each activity
+- Selectable duration beside each activity
+- Automatic daily and weekly totals by category
+- Visual warnings for overloaded days
+
+## Deployment
 Upload:
 - app.py
 - requirements.txt
 - README.md
 - .gitignore
 
-## Run locally
-```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
-
-## Deploy on Streamlit Community Cloud
-1. Sign in with GitHub.
-2. Create a new app.
-3. Select your repository.
-4. Branch: `main`
-5. Main file: `app.py`
-6. Deploy.
+Then deploy `app.py` on Streamlit Community Cloud.
