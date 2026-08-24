@@ -1,5 +1,6 @@
 import streamlit as st
 from datetime import date, timedelta
+import pandas as pd
 
 st.set_page_config(page_title="Mom Weekly Calendar", page_icon="📅", layout="wide")
 
@@ -277,6 +278,27 @@ for category, activities in CATEGORIES.items():
     with st.expander(category, expanded=(category in ["🎒 Kids / School","👶 Toddler"])):
         st.caption("Select activities and estimated duration.")
 
+        b1,b2,_ = st.columns([1.2,1.2,4])
+        if b1.button("Select All", key=f"select_all_{day_key}_{category}"):
+            for idx, activity in enumerate(activities):
+                existing = st.session_state.schedule[day_key].get(
+                    activity, {"selected":False,"minutes":DEFAULT_MINUTES.get(activity,30)}
+                )
+                existing["selected"] = True
+                st.session_state.schedule[day_key][activity] = existing
+                st.session_state[f"{day_key}_{category}_{idx}_selected"] = True
+            st.rerun()
+
+        if b2.button("Clear All", key=f"clear_all_{day_key}_{category}"):
+            for idx, activity in enumerate(activities):
+                existing = st.session_state.schedule[day_key].get(
+                    activity, {"selected":False,"minutes":DEFAULT_MINUTES.get(activity,30)}
+                )
+                existing["selected"] = False
+                st.session_state.schedule[day_key][activity] = existing
+                st.session_state[f"{day_key}_{category}_{idx}_selected"] = False
+            st.rerun()
+
         for idx, activity in enumerate(activities):
             row = st.columns([0.6,4.8,2.2])
             key_base = f"{day_key}_{category}_{idx}"
@@ -323,16 +345,24 @@ for category, activities in CATEGORIES.items():
 
 st.header("📊 Daily Time Summary")
 
-m1,m2,m3 = st.columns(3)
+unplanned = max(0, 1440 - day_total)
+m1,m2 = st.columns(2)
 m1.metric("Total planned time",hours_text(day_total))
-m2.metric("Total minutes",f"{day_total} min")
-m3.metric("Total hours",f"{day_total/60:.1f} hr")
+m2.metric("Total unplanned time",hours_text(unplanned))
 
-st.subheader("Time spent by category")
-cols = st.columns(4)
-for i,(category,total) in enumerate(category_totals.items()):
-    with cols[i % 4]:
-        st.metric(category, hours_text(total))
+st.subheader("Hours spent by category")
+chart_rows = []
+for category,total in category_totals.items():
+    clean = category
+    for icon in ["🎒 ","👶 ","🧹 ","🍳 ","🧺 ","⛪ ","💛 ","👨‍👩‍👧‍👦 ","😴 "]:
+        clean = clean.replace(icon,"")
+    chart_rows.append({"Category":clean,"Hours":round(total/60,2)})
+
+chart_df = pd.DataFrame(chart_rows)
+st.bar_chart(chart_df.set_index("Category"), y="Hours", horizontal=True)
+
+for row in chart_rows:
+    st.write(f"**{row['Category']}: {row['Hours']:.2f} hours**")
 
 if day_total > 1440:
     st.error(f"🔴 This plan exceeds 24 hours by {hours_text(day_total-1440)}.")

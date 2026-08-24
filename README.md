@@ -34,3 +34,9 @@ Upload:
 - .gitignore
 
 Then deploy `app.py` on Streamlit Community Cloud.
+
+## Added in this version
+- Select All and Clear All inside every expandable category
+- Daily category metrics displayed as a bar chart
+- Total hours labeled for each category
+- Daily summary simplified to Total Planned Time + Total Unplanned Time
