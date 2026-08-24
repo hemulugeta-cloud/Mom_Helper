@@ -1,51 +1,56 @@
-# Mom Weekly Calendar
+# Mom Weekly Calendar — Full Upgrade
 
-Weekly Streamlit planner for a mom with five children ages 2–12, with the 2-year-old staying home.
+A professional Streamlit family planning dashboard for a mom managing five children, including a 2-year-old at home.
 
-## Categories
-- Kids / School
-- Toddler
-- Cleaning
-- Cooking
-- Laundry
-- Church
-- Mom Self-Care
-- Family Time
-- Sleep
+## Included
+- Weekly calendar with selectable days
+- Expandable/collapsible categories
+- Select All / Clear All
+- Duration and optional start time for each activity
+- Category charts with labeled hours
+- Planned and unplanned time
+- Minimum daily Mom sleep target
+- Minimum daily Mom self-care target
+- Minimum breathing-room target
+- Daily wellness warnings
+- Weekly Balance Score
+- Days sleep/self-care targets were met
+- Overloaded-day detection
+- Weekly meal-plan tab
+- Reusable food lookup
+- Breakfast/lunch/dinner dropdowns for every day
+- Meal-to-grocery ingredient suggestions
+- Grocery master lookup
+- Shopping list grouped by category
+- Google Calendar OAuth integration (optional)
+- View current week's Google Calendar events
+- Push planner activities with start times to Google Calendar
+- JSON backup/restore
+- Professional modern styling
 
-## New features
-- Church worship
-- Church class
-- Kids church / Sunday school
-- Separate Cleaning, Cooking, and Laundry categories
-- Expanded Mom Self-Care activity choices
-- Expanded Family Time activity choices
-- Every category is collapsible / expandable
-- Checkbox beside each activity
-- Selectable duration beside each activity
-- Automatic daily and weekly totals by category
-- Visual warnings for overloaded days
+## Google Calendar setup
+The app works without Google Calendar.
 
-## Deployment
+To enable integration:
+1. Enable Google Calendar API in Google Cloud.
+2. Create OAuth 2.0 credentials for a Web application.
+3. Add your Streamlit app URL as an authorized redirect URI.
+4. Add this to Streamlit Secrets:
+
+```toml
+[google_oauth]
+client_id = "YOUR_CLIENT_ID"
+client_secret = "YOUR_CLIENT_SECRET"
+redirect_uri = "https://YOUR-APP.streamlit.app/"
+```
+
+Never commit OAuth secrets to GitHub.
+
+## Deploy
 Upload:
-- app.py
-- requirements.txt
-- README.md
-- .gitignore
+- `app.py`
+- `requirements.txt`
+- `README.md`
+- `.gitignore`
 
-Then deploy `app.py` on Streamlit Community Cloud.
-
-## Added in this version
-- Select All and Clear All inside every expandable category
-- Daily category metrics displayed as a bar chart
-- Total hours labeled for each category
-- Daily summary simplified to Total Planned Time + Total Unplanned Time
-
-## Professional polish update
-- Modern dashboard spacing and typography
-- Card-style metric tiles
-- Cleaner expandable category panels
-- Polished selected-day banner
-- Improved action buttons and section hierarchy
-- Refined daily and weekly overview styling
-- Cleaner category chart presentation
+Deploy `app.py` through Streamlit Community Cloud.
